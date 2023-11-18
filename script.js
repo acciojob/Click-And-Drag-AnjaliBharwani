@@ -1,27 +1,29 @@
-// Your code here.
- const itemsContainer = document.querySelector(".items");
-    let isDragging = false;
+const slider = document.querySelector('.items');
+    let isDown = false;
     let startX;
     let scrollLeft;
 
-    itemsContainer.addEventListener("mousedown", (e) => {
-      isDragging = true;
-      startX = e.pageX - itemsContainer.offsetLeft;
-      scrollLeft = itemsContainer.scrollLeft;
+    slider.addEventListener('mousedown', (event) => {
+        isDown = true;
+        slider.classList.add('active')
+        startX = event.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active')
     });
 
-    itemsContainer.addEventListener("mouseup", () => {
-      isDragging = false;
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active')
     });
 
-    itemsContainer.addEventListener("mouseleave", () => {
-      isDragging = false;
-    });
-
-    itemsContainer.addEventListener("mousemove", (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX - itemsContainer.offsetLeft;
-      const walk = (x - startX) * 3; // You can adjust the multiplier to control the speed
-      itemsContainer.scrollLeft = scrollLeft - walk;
+    slider.addEventListener('mousemove', (event) => {
+        if (!isDown) return;
+        event.preventDefault();
+        const x = event.pageX - slider.offsetLeft;
+        const walk = (x - startX)*2;
+        slider.scrollLeft = scrollLeft - walk;
     });
